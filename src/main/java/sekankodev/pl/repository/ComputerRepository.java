@@ -44,8 +44,8 @@ public class ComputerRepository {
             for (Computer computer : computers) {
                 statement.setString(1, computer.getName());
                 statement.setDate(2, java.sql.Date.valueOf(computer.getPostDate()));
-                statement.setBigDecimal(3, computer.getPricePln());
-                statement.setBigDecimal(4, computer.getPriceUsd());
+                statement.setBigDecimal(3, computer.getPriceUsd());
+                statement.setBigDecimal(4, computer.getPricePln());
                 statement.addBatch();
             }
             statement.executeBatch();

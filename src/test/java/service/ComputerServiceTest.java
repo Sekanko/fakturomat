@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sekankodev.pl.dto.ComputerRequestDto;
 import sekankodev.pl.dto.RateDto;
+import sekankodev.pl.enums.SortDirection;
 import sekankodev.pl.enums.SortOption;
 import sekankodev.pl.exception.DataAccessException;
 import sekankodev.pl.exception.InvoiceNotCreatedException;
@@ -106,10 +107,10 @@ public class ComputerServiceTest {
                     new Computer("test", LocalDate.of(2000,1,1), BigDecimal.valueOf(100), BigDecimal.valueOf(120)),
                     new Computer("test2", LocalDate.of(2000,2,2), BigDecimal.valueOf(200), BigDecimal.valueOf(220))
             );
-            when(computerRepository.findAll(any(), any())).thenReturn(computers);
-            List<Computer> result = computerService.findComputers(SortOption.NOTHING, "");
+            when(computerRepository.findAll(any(), any(), any())).thenReturn(computers);
+            List<Computer> result = computerService.findComputers(SortOption.NOTHING, SortDirection.ASC,"");
 
-            verify(computerRepository, times(1)).findAll(SortOption.NOTHING, "");
+            verify(computerRepository, times(1)).findAll(SortOption.NOTHING, SortDirection.ASC,"");
             assertEquals(computers, result);
          }
     }

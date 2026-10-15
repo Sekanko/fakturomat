@@ -4,6 +4,7 @@ import sekankodev.pl.dto.ComputerRequestDto;
 import sekankodev.pl.dto.ComputerXmlDto;
 import sekankodev.pl.dto.InvoiceToXmlDto;
 import sekankodev.pl.dto.RateDto;
+import sekankodev.pl.enums.SortDirection;
 import sekankodev.pl.enums.SortOption;
 import sekankodev.pl.exception.DataAccessException;
 import sekankodev.pl.exception.InvoiceNotCreatedException;
@@ -58,8 +59,8 @@ public class ComputerService {
         }
     }
 
-    public List<Computer> findComputers(SortOption sort, String searchQuery){
-        return computerRepository.findAll(sort, searchQuery);
+    public List<Computer> findComputers(SortOption sort, SortDirection direction, String searchQuery){
+        return computerRepository.findAll(sort, direction, searchQuery);
     }
 
     private BigDecimal calculatePlnPrice(LocalDate date, BigDecimal usdPrice){

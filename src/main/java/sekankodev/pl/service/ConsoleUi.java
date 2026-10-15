@@ -1,6 +1,7 @@
 package sekankodev.pl.service;
 
 import sekankodev.pl.dto.ComputerRequestDto;
+import sekankodev.pl.enums.SortDirection;
 import sekankodev.pl.enums.SortOption;
 import sekankodev.pl.model.Computer;
 
@@ -27,8 +28,12 @@ public class ConsoleUi {
             firstChoice = showMainMenu();
             if (firstChoice.equals("1")){
                 SortOption sortOption = chooseSortOption();
+                SortDirection sortDirection = SortDirection.ASC;
+                if (sortOption != SortOption.NOTHING) {
+                    sortDirection = chooseSortDirection();
+                }
                 String query = enterSearchQuery();
-                List<Computer> computers = computerService.findComputers(sortOption, query);
+                List<Computer> computers = computerService.findComputers(sortOption, sortDirection, query);
                 System.out.println("Wyniki wyszukiwania:");
 
                 System.out.println("-----------------------------------");
@@ -95,5 +100,24 @@ public class ConsoleUi {
         }
 
         return sortOption;
+    }
+
+    private SortDirection chooseSortDirection(){
+        System.out.println("Jak chcesz sortować:");
+        System.out.println("1. Rosnąco");
+        System.out.println("2. Malejąco");
+
+        SortDirection sortDirection;
+        String input = scanner.nextLine().trim();
+
+        switch (input) {
+            case "1" -> sortDirection = SortDirection.ASC;
+            case "2" -> sortDirection = SortDirection.DESC;
+            default -> {
+                System.out.println("Wprowadzono niepoprawną komendę. Zostanie zastosowane sortowanie rosnące");
+                sortDirection = SortDirection.ASC;
+            }
+        }
+        return sortDirection;
     }
 }

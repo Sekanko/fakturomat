@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
-    private static final String DB_URL = "jdbc:h2:mem:rates;DATABASE_TO_UPPER=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE";
+    private static final String DB_URL = "jdbc:h2:mem:computer_db;DATABASE_TO_UPPER=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE";
     
     public static void main(String[] args) {
         try (Connection connection = DriverManager.getConnection(DB_URL)){

@@ -3,7 +3,6 @@ package sekankodev.pl.dto;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import sekankodev.pl.model.Computer;
 import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import tools.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,6 +19,6 @@ public record ComputerXmlDto(
         BigDecimal priceUsd
 ) {
         public static ComputerXmlDto fromEntity(Computer computer){
-                return new ComputerXmlDto(computer.getName(), computer.getPostDate(), computer.getPricePln(), computer.getPriceUsd());
+                return new ComputerXmlDto(computer.name(), computer.postDate(), computer.pricePln(), computer.priceUsd());
         }
 }

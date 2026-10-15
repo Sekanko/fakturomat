@@ -54,6 +54,10 @@ public class NbpClient {
 
             NbpRateResponseDto result = objectMapper.readValue(response.body(), NbpRateResponseDto.class);
 
+            if (result.rates() == null || result.rates().isEmpty()) {
+                throw new NbpApiException("Api responded with no rates: " + response.body());
+            }
+
             return result.rates()
                     .stream()
                     .max(Comparator.comparing(RateDto::effectiveDate))

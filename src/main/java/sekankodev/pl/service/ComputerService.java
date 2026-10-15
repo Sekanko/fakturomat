@@ -30,6 +30,10 @@ public class ComputerService {
     }
 
     public void processOrder(List<ComputerRequestDto> computerDtos, String strPath){
+        if (computerDtos.isEmpty()) return;
+
+        if (strPath == null || strPath.isBlank()) throw new InvoiceNotCreatedException("Invoice path cannot be empty");
+
         List<Computer> computers = computerDtos.stream()
                 .map(c -> {
                     LocalDate postDate = c.post_date();
@@ -50,6 +54,7 @@ public class ComputerService {
             computerRepository.insert(computers);
         } catch (DataAccessException e){
             saveFailedProcedure(path);
+            throw new InvoiceNotCreatedException("Invoice not created: " + e.getMessage());
         }
     }
 
@@ -58,8 +63,7 @@ public class ComputerService {
     }
 
     private BigDecimal calculatePlnPrice(LocalDate date, BigDecimal usdPrice){
-        RateDto rateDto;
-        rateDto = nbpClient.getDollarPlnRate(date, date.minusDays(MAX_DAYS_BACK));
+        RateDto rateDto = nbpClient.getDollarPlnRate(date, date.minusDays(MAX_DAYS_BACK));
         return usdPrice.multiply(rateDto.bid()).setScale(2, RoundingMode.HALF_UP);
     }
 

@@ -13,9 +13,9 @@ public record ComputerXmlDto(
         String name,
         @JacksonXmlProperty(localName = "data_ksiegowania")
         LocalDate postDate,
-        @JacksonXmlProperty(localName = "koszt_USD")
-        BigDecimal pricePln,
         @JacksonXmlProperty(localName = "koszt_PLN")
+        BigDecimal pricePln,
+        @JacksonXmlProperty(localName = "koszt_USD")
         BigDecimal priceUsd
 ) {
         public static ComputerXmlDto fromEntity(Computer computer){

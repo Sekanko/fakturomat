@@ -35,12 +35,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>tools.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>3.0.0-rc2</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>tools.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
             <version>3.2.3</version>

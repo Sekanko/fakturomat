@@ -41,10 +41,8 @@ public class ComputerServiceTest {
     @InjectMocks
     private ComputerService computerService;
 
-
-
     @BeforeEach
-    public void setUp() {
+     void setUp() {
         reset(nbpClient, computerRepository, exporter);
     }
 
@@ -53,7 +51,7 @@ public class ComputerServiceTest {
         List<ComputerRequestDto> dtoList;
 
         @BeforeEach
-        public void setUp() {
+        void setUp() {
             reset(nbpClient, computerRepository, exporter);
             dtoList = List.of(
                     new ComputerRequestDto("test", LocalDate.of(2026, 1, 1), BigDecimal.valueOf(100)),
@@ -63,7 +61,8 @@ public class ComputerServiceTest {
 
 
         @Test
-        public void emptyList_nothingHappens() {
+        public
+        void emptyList_nothingHappens() {
             computerService.processOrder(List.of(), "./faktura.xml");
             verifyNoInteractions(computerRepository);
             verifyNoInteractions(exporter);
@@ -71,17 +70,20 @@ public class ComputerServiceTest {
         }
 
         @Test
-        public void pathIsBlank_throwsInvoiceNotCreatedException(){
+        public
+        void pathIsBlank_throwsInvoiceNotCreatedException(){
             assertThrows(InvoiceNotCreatedException.class ,()->computerService.processOrder(dtoList, "    "));
         }
 
         @Test
-        public void pathIsNull_throwsInvoiceNotCreatedException(){
+        public
+        void pathIsNull_throwsInvoiceNotCreatedException(){
             assertThrows(InvoiceNotCreatedException.class ,()->computerService.processOrder(dtoList, null));
         }
 
         @Test
-        public void exporterFailed_throwsInvoiceNotCreatedException(){
+        public
+        void exporterFailed_throwsInvoiceNotCreatedException(){
             doThrow(new DataAccessException("message", new Exception())).when(exporter).createInvoice(any(), any());
             when(nbpClient.getDollarPlnRate(any(), any())).thenReturn(
                     new RateDto("test", LocalDate.of(2000,1,1), BigDecimal.valueOf(2.35), BigDecimal.valueOf(2.5))
@@ -89,7 +91,8 @@ public class ComputerServiceTest {
             assertThrows(InvoiceNotCreatedException.class ,()->computerService.processOrder(dtoList, "./faktura.xml"));
         }
 
-        @Test void validInput_invoiceIsCreated(){
+        @Test
+        void validInput_invoiceIsCreated(){
             when(nbpClient.getDollarPlnRate(any(), any())).thenReturn(
                     new RateDto("test", LocalDate.of(2000,1,1), BigDecimal.valueOf(2.35), BigDecimal.valueOf(2.5))
             );
@@ -102,7 +105,8 @@ public class ComputerServiceTest {
 
     @Nested
     class FindComputersTest {
-         @Test void findComputers_validInput_returnsComputers(){
+         @Test
+         void findComputers_validInput_returnsComputers(){
             List<Computer> computers = List.of(
                     new Computer("test", LocalDate.of(2000,1,1), BigDecimal.valueOf(100), BigDecimal.valueOf(120)),
                     new Computer("test2", LocalDate.of(2000,2,2), BigDecimal.valueOf(200), BigDecimal.valueOf(220))

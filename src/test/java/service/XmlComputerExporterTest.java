@@ -30,7 +30,7 @@ public class XmlComputerExporterTest {
     Path tempDir;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         xmlMapper = new XmlMapper();
         exporter = new XmlComputerExporter(xmlMapper);
 
@@ -69,8 +69,8 @@ public class XmlComputerExporterTest {
 
         assertTrue(xml.contains("<faktura>"));
         assertTrue(xml.contains("<nazwa>test</nazwa>"));
-        assertTrue(xml.contains("<koszt_USD>100</koszt_USD>"));
-        assertTrue(xml.contains("<koszt_PLN>120</koszt_PLN>"));
+        assertTrue(xml.contains("<koszt_USD>120</koszt_USD>"));
+        assertTrue(xml.contains("<koszt_PLN>100</koszt_PLN>"));
         assertTrue(xml.contains("<data_ksiegowania>"));
         assertTrue(xml.contains("<nazwa>test2</nazwa>"));
     }

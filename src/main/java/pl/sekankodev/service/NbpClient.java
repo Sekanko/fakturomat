@@ -61,7 +61,7 @@ public class NbpClient {
             return result.rates()
                     .stream()
                     .max(Comparator.comparing(RateDto::effectiveDate))
-                    .orElseThrow(() -> new RateNotFoundException("Exchange rate not found beetween dates: " + minDateString + " and " + maxDateString));
+                    .orElseThrow(() -> new RateNotFoundException("Exchange rate not found between dates: " + minDateString + " and " + maxDateString));
 
         } catch (IOException | InterruptedException e){
             throw new NbpApiException("Request failed:" + e.getMessage(), e);

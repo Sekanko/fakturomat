@@ -20,7 +20,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ComputerRepositoryTest {
+ public class ComputerRepositoryTest {
     Connection connection;
     ComputerRepository repo;
 
@@ -42,7 +42,7 @@ public class ComputerRepositoryTest {
     @Nested
     class createTableIfNotExistsTest {
         @Test
-        public void tableDoesNotExist_createTable() throws Exception {
+         void tableDoesNotExist_createTable() throws Exception {
             repo.createTableIfNotExists();
 
             ResultSet rs = connection.getMetaData().getTables(null, null, "computers", null);
@@ -51,13 +51,13 @@ public class ComputerRepositoryTest {
         }
 
         @Test
-        public void callTwice_doesNotThrowException(){
+         void callTwice_doesNotThrowException(){
             repo.createTableIfNotExists();
             assertDoesNotThrow(repo::createTableIfNotExists);
         }
 
         @Test
-        public void closedConnection_throwsDataAccessException() throws SQLException {
+         void closedConnection_throwsDataAccessException() throws SQLException {
             connection.close();
             assertThrows(DataAccessException.class, repo::createTableIfNotExists);
         }
@@ -77,38 +77,38 @@ public class ComputerRepositoryTest {
         }
 
         @Test
-        public void computerIterableIsNull_nothingHappens() throws SQLException {
+         void computerIterableIsNull_nothingHappens() throws SQLException {
             repo.insert(null);
             assertEquals(0, countRowsInComputerTable());
 
         }
 
         @Test
-        public void computerIterableIsEmpty_nothingHappens() throws SQLException {
+         void computerIterableIsEmpty_nothingHappens() throws SQLException {
             repo.insert(null);
             assertEquals(0, countRowsInComputerTable());
         }
 
         @Test
-        public void computerIterableContainsNull_throwsIllegalArgumentException(){
+         void computerIterableContainsNull_throwsIllegalArgumentException(){
             computers.add(null);
             assertThrows(IllegalArgumentException.class, () -> repo.insert(computers));
         }
 
         @Test
-        public void validInput_computersAreInserted() throws SQLException {
+         void validInput_computersAreInserted() throws SQLException {
             repo.insert(computers);
             assertEquals(2, countRowsInComputerTable());
         }
 
         @Test
-        public void closedConnection_throwsDataAccessException() throws SQLException {
+         void closedConnection_throwsDataAccessException() throws SQLException {
             connection.close();
             assertThrows(DataAccessException.class, () -> repo.insert(computers));
         }
 
         @Test
-        public void invalidComputerData_rollsBackAndThrowsDataAccessException() throws SQLException {
+         void invalidComputerData_rollsBackAndThrowsDataAccessException() throws SQLException {
             computers.add(new Computer(null, LocalDate.now(), BigDecimal.valueOf(100), BigDecimal.valueOf(120)));
             assertThrows(DataAccessException.class, () -> repo.insert(computers));
             assertEquals(0, countRowsInComputerTable());
@@ -140,62 +140,62 @@ public class ComputerRepositoryTest {
         }
 
         @Test
-        public void sortOptionIsNothingSearchIsNull_returnsFullList(){
+         void sortOptionIsNothingSearchIsNull_returnsFullList(){
             List<Computer> result = repo.findAll(SortOption.NOTHING, SortDirection.ASC, null);
             assertEquals(computers, result);
         }
 
         @Test
-        public void searchIsBlank_returnsFilteredList(){
+         void searchIsBlank_returnsFilteredList(){
             List<Computer> result = repo.findAll(SortOption.NOTHING, SortDirection.ASC," ");
             assertEquals(computers, result);
         }
 
         @Test
-        public void searchTwoRecords_returnsFilteredList(){
+         void searchTwoRecords_returnsFilteredList(){
             List<Computer> result = repo.findAll(SortOption.NOTHING, SortDirection.ASC,"atest");
             assertEquals(List.of(computers.get(1), computers.get(2)), result);
         }
 
         @Test
-        public void searchOneRecord_returnsFilteredList(){
+         void searchOneRecord_returnsFilteredList(){
             List<Computer> result = repo.findAll(SortOption.POST_DATE, SortDirection.ASC, "test1");
             assertEquals(List.of(computers.getFirst()), result);
         }
 
         @Test
-        public void sortByNameAsc_returnsSortedList(){
+         void sortByNameAsc_returnsSortedList(){
             List<Computer> result = repo.findAll(SortOption.NAME, SortDirection.ASC, "");
             assertEquals(List.of(computers.get(1), computers.get(2), computers.get(0)), result);
         }
 
         @Test
-        public void sortByNameDesc_returnsSortedList(){
+         void sortByNameDesc_returnsSortedList(){
             List<Computer> result = repo.findAll(SortOption.NAME, SortDirection.DESC, "");
             assertEquals(List.of(computers.get(0), computers.get(2), computers.get(1)), result);
         }
 
         @Test
-        public void sortByPostDateAsc_returnsSortedList(){
+         void sortByPostDateAsc_returnsSortedList(){
             List<Computer> result = repo.findAll(SortOption.POST_DATE, SortDirection.ASC, "");
             assertEquals(List.of(computers.get(2), computers.get(1), computers.get(0)), result);
         }
 
         @Test
-        public void sortByPostDateDesc_returnsSortedList(){
+         void sortByPostDateDesc_returnsSortedList(){
             List<Computer> result = repo.findAll(SortOption.POST_DATE, SortDirection.DESC, "");
             assertEquals(List.of(computers.get(0), computers.get(1), computers.get(2)), result);
         }
 
         @Test
-        public void sortAndSearch_returnsSortedAndFilteredList(){
+         void sortAndSearch_returnsSortedAndFilteredList(){
             List<Computer> result = repo.findAll(SortOption.NAME, SortDirection.ASC, "atest");
             assertEquals(List.of(computers.get(1), computers.get(2)), result);
         }
     }
 
     @Test
-    public void closedConnection_throwsDataAccessException() throws SQLException {
+     void closedConnection_throwsDataAccessException() throws SQLException {
         connection.close();
         assertThrows(DataAccessException.class, () -> repo.findAll(SortOption.NOTHING, SortDirection.ASC, ""));
     }

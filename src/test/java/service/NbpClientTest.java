@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.sekankodev.dto.RateDto;
 import pl.sekankodev.exception.NbpApiException;
+import pl.sekankodev.exception.RateNotFoundException;
 import pl.sekankodev.service.NbpClient;
 import tools.jackson.databind.ObjectMapper;
 
@@ -17,7 +18,6 @@ import java.time.LocalDate;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doThrow;
 
 @WireMockTest
 public class NbpClientTest {
@@ -26,14 +26,14 @@ public class NbpClientTest {
     private NbpClient nbpClient;
 
     @BeforeEach
-    public void setUp(WireMockRuntimeInfo wm) {
+    void setUp(WireMockRuntimeInfo wm) {
         httpClient = HttpClient.newHttpClient();
         objectMapper = new ObjectMapper();
         nbpClient = new NbpClient(wm.getHttpBaseUrl(),httpClient, objectMapper);
     }
 
     @Test
-    public void getDollarPlnRate_validInput_returnsRateDto(){
+    void getDollarPlnRate_validInput_returnsRateDto(){
         stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(okJson(
                 """
             {
@@ -77,19 +77,19 @@ public class NbpClientTest {
     }
 
     @Test
-    public void getDollarPlnRate_invalidInput_throwsNbpApiException(){
+    void getDollarPlnRate_invalidInput_throwsNbpApiException(){
          stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(notFound()));
-         assertThrows(NbpApiException.class, () -> nbpClient.getDollarPlnRate(LocalDate.of(2000,1,8), LocalDate.of(2000,1,1)));
+         assertThrows(RateNotFoundException.class, () -> nbpClient.getDollarPlnRate(LocalDate.of(2000,1,8), LocalDate.of(2000,1,1)));
     }
 
     @Test
-    public void getDollarPlnRate_serverError_throwsNbpApiException(){
+    void getDollarPlnRate_serverError_throwsNbpApiException(){
         stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(serverError()));
         assertThrows(NbpApiException.class, () -> nbpClient.getDollarPlnRate(LocalDate.of(2000,1,8), LocalDate.of(2000,1,1)));
     }
 
     @Test
-    public void getDollarPlnRate_invalidBody_throwsNbpApiException(){
+    void getDollarPlnRate_invalidBody_throwsNbpApiException(){
         stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(okJson(
                 """
               {
@@ -101,13 +101,13 @@ public class NbpClientTest {
     }
 
     @Test
-    public void getDollarPlnRate_invalidJson_throwsNbpApiException(){
+    void getDollarPlnRate_invalidJson_throwsNbpApiException(){
         stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(okJson("{ this is not json")));
         assertThrows(NbpApiException.class, () -> nbpClient.getDollarPlnRate(LocalDate.of(2000,1,8), LocalDate.of(2000,1,1)));
     }
 
     @Test
-    public void getDollarPlnRate_invalidResponse_throwsNbpApiException() throws IOException, InterruptedException {
+    void getDollarPlnRate_invalidResponse_throwsNbpApiException() throws IOException, InterruptedException {
         stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(okJson("""
                 {
                   "key": "value"

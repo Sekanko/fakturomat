@@ -6,6 +6,7 @@ import pl.sekankodev.enums.SortOption;
 import pl.sekankodev.model.Computer;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -47,8 +48,8 @@ public class ConsoleUi {
     }
 
     private void initData(){
-
-        System.out.println("Wczytywanie następująych danych...");
+        System.out.println();
+        System.out.println("Wczytywanie następujących danych...");
         System.out.println("""
                 - komputer ACER Aspire – kwota 345 USD
                 - komputer DELL Latitude – kwota 543 USD
@@ -56,9 +57,9 @@ public class ConsoleUi {
                 """);
 
         List<ComputerRequestDto> computerRequestDtos = List.of(
-                new ComputerRequestDto("ACER Aspire", LocalDate.of(2026, 7, 3), BigDecimal.valueOf(345)),
-                new ComputerRequestDto("DELL Latitude", LocalDate.of(2026, 7, 12), BigDecimal.valueOf(345)),
-                new ComputerRequestDto("HP Victus", LocalDate.of(2026, 7, 15), BigDecimal.valueOf(345))
+                new ComputerRequestDto("ACER Aspire", LocalDate.of(2026, 7, 3), BigDecimal.valueOf(345).setScale(2, RoundingMode.HALF_UP)),
+                new ComputerRequestDto("DELL Latitude", LocalDate.of(2026, 7, 12), BigDecimal.valueOf(543).setScale(2, RoundingMode.HALF_UP)),
+                new ComputerRequestDto("HP Victus", LocalDate.of(2026, 7, 15), BigDecimal.valueOf(346).setScale(2, RoundingMode.HALF_UP))
         );
 
         computerService.processOrder(computerRequestDtos, "./faktura.xml");
@@ -66,13 +67,16 @@ public class ConsoleUi {
     }
 
     private void welcomeMessage(){
+        System.out.println();
+
         System.out.println("***");
         System.out.println("Witaj w systemie FAKTUROMAT");
-        System.out.println("Po wyborze \"pokaż wszytskie komputery\", wyświetlą się opcje sortowania i wyszukiwania.");
+        System.out.println("Po wyborze \"pokaż wszytskie komputery\" wyświetlą się opcje sortowania i wyszukiwania.");
         System.out.println("***");
     }
 
     private String showMainMenu(){
+        System.out.println();
         System.out.println("Wybierz jedną z opcji:");
         System.out.println("1. Pokaż wszytskie komputery");
         System.out.println("2. Wyjście");
@@ -81,11 +85,13 @@ public class ConsoleUi {
     }
 
     private String enterSearchQuery(){
+        System.out.println();
         System.out.println("Szukanie po nazwie komputera (naciśnij enter żeby pominąć):");
         return scanner.nextLine().trim();
     }
 
     private SortOption chooseSortOption(){
+        System.out.println();
         System.out.println("Sortuj po(naciśnij enter żeby pominąć): ");
         System.out.println("1. Nazwie");
         System.out.println("2. Dacie księgowania");
@@ -103,6 +109,7 @@ public class ConsoleUi {
     }
 
     private SortDirection chooseSortDirection(){
+        System.out.println();
         System.out.println("Jak chcesz sortować:");
         System.out.println("1. Rosnąco");
         System.out.println("2. Malejąco");

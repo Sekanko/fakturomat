@@ -1,4 +1,4 @@
-package sekankodev.pl.dto;
+package pl.sekankodev.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

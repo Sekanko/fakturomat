@@ -1,4 +1,4 @@
-package sekankodev.pl.model;
+package pl.sekankodev.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

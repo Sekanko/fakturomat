@@ -1,9 +1,9 @@
-package sekankodev.pl.repository;
+package pl.sekankodev.repository;
 
-import sekankodev.pl.enums.SortDirection;
-import sekankodev.pl.enums.SortOption;
-import sekankodev.pl.exception.DataAccessException;
-import sekankodev.pl.model.Computer;
+import pl.sekankodev.enums.SortDirection;
+import pl.sekankodev.enums.SortOption;
+import pl.sekankodev.exception.DataAccessException;
+import pl.sekankodev.model.Computer;
 
 import java.sql.*;
 import java.util.ArrayList;

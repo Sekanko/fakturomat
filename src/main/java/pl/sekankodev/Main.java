@@ -1,10 +1,10 @@
-package sekankodev.pl;
+package pl.sekankodev;
 
-import sekankodev.pl.repository.ComputerRepository;
-import sekankodev.pl.service.ComputerService;
-import sekankodev.pl.service.ConsoleUi;
-import sekankodev.pl.service.NbpClient;
-import sekankodev.pl.service.XmlComputerExporter;
+import pl.sekankodev.repository.ComputerRepository;
+import pl.sekankodev.service.ComputerService;
+import pl.sekankodev.service.ConsoleUi;
+import pl.sekankodev.service.NbpClient;
+import pl.sekankodev.service.XmlComputerExporter;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.dataformat.xml.XmlMapper;
 

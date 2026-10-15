@@ -1,7 +1,7 @@
-package sekankodev.pl.service;
+package pl.sekankodev.service;
 
-import sekankodev.pl.dto.InvoiceToXmlDto;
-import sekankodev.pl.exception.InvoiceNotCreatedException;
+import pl.sekankodev.dto.InvoiceToXmlDto;
+import pl.sekankodev.exception.InvoiceNotCreatedException;
 import tools.jackson.dataformat.xml.XmlMapper;
 
 import java.nio.file.Path;

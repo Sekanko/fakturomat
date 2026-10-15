@@ -4,11 +4,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import sekankodev.pl.enums.SortDirection;
-import sekankodev.pl.enums.SortOption;
-import sekankodev.pl.exception.DataAccessException;
-import sekankodev.pl.model.Computer;
-import sekankodev.pl.repository.ComputerRepository;
+import pl.sekankodev.enums.SortDirection;
+import pl.sekankodev.enums.SortOption;
+import pl.sekankodev.exception.DataAccessException;
+import pl.sekankodev.model.Computer;
+import pl.sekankodev.repository.ComputerRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

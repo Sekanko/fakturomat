@@ -1,9 +1,9 @@
-package sekankodev.pl.service;
+package pl.sekankodev.service;
 
-import sekankodev.pl.dto.ComputerRequestDto;
-import sekankodev.pl.enums.SortDirection;
-import sekankodev.pl.enums.SortOption;
-import sekankodev.pl.model.Computer;
+import pl.sekankodev.dto.ComputerRequestDto;
+import pl.sekankodev.enums.SortDirection;
+import pl.sekankodev.enums.SortOption;
+import pl.sekankodev.model.Computer;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

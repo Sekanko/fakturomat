@@ -1,4 +1,4 @@
-package sekankodev.pl.enums;
+package pl.sekankodev.enums;
 
 public enum SortOption {
     NAME("nazwa"),

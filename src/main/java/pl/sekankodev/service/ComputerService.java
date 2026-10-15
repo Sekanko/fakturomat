@@ -1,15 +1,15 @@
-package sekankodev.pl.service;
+package pl.sekankodev.service;
 
-import sekankodev.pl.dto.ComputerRequestDto;
-import sekankodev.pl.dto.ComputerXmlDto;
-import sekankodev.pl.dto.InvoiceToXmlDto;
-import sekankodev.pl.dto.RateDto;
-import sekankodev.pl.enums.SortDirection;
-import sekankodev.pl.enums.SortOption;
-import sekankodev.pl.exception.DataAccessException;
-import sekankodev.pl.exception.InvoiceNotCreatedException;
-import sekankodev.pl.model.Computer;
-import sekankodev.pl.repository.ComputerRepository;
+import pl.sekankodev.dto.ComputerRequestDto;
+import pl.sekankodev.dto.ComputerXmlDto;
+import pl.sekankodev.dto.InvoiceToXmlDto;
+import pl.sekankodev.dto.RateDto;
+import pl.sekankodev.enums.SortDirection;
+import pl.sekankodev.enums.SortOption;
+import pl.sekankodev.exception.DataAccessException;
+import pl.sekankodev.exception.InvoiceNotCreatedException;
+import pl.sekankodev.model.Computer;
+import pl.sekankodev.repository.ComputerRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -3,10 +3,10 @@ package service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import sekankodev.pl.dto.ComputerXmlDto;
-import sekankodev.pl.dto.InvoiceToXmlDto;
-import sekankodev.pl.exception.InvoiceNotCreatedException;
-import sekankodev.pl.service.XmlComputerExporter;
+import pl.sekankodev.dto.ComputerXmlDto;
+import pl.sekankodev.dto.InvoiceToXmlDto;
+import pl.sekankodev.exception.InvoiceNotCreatedException;
+import pl.sekankodev.service.XmlComputerExporter;
 import tools.jackson.dataformat.xml.XmlMapper;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package sekankodev.pl.exception;
+package pl.sekankodev.exception;
 
 public class RateNotFoundException extends NbpApiException {
     public RateNotFoundException(String message) {

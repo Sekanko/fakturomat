@@ -1,4 +1,4 @@
-package sekankodev.pl.exception;
+package pl.sekankodev.exception;
 
 public class DataAccessException extends AppException {
     public DataAccessException(String message, Throwable cause) {

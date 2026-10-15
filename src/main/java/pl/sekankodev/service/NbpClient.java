@@ -1,9 +1,9 @@
-package sekankodev.pl.service;
+package pl.sekankodev.service;
 
-import sekankodev.pl.dto.NbpRateResponseDto;
-import sekankodev.pl.dto.RateDto;
-import sekankodev.pl.exception.NbpApiException;
-import sekankodev.pl.exception.RateNotFoundException;
+import pl.sekankodev.dto.NbpRateResponseDto;
+import pl.sekankodev.dto.RateDto;
+import pl.sekankodev.exception.NbpApiException;
+import pl.sekankodev.exception.RateNotFoundException;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
 

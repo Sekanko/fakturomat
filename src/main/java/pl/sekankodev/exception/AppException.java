@@ -1,4 +1,4 @@
-package sekankodev.pl.exception;
+package pl.sekankodev.exception;
 
 public abstract class AppException extends RuntimeException {
     public AppException(String message) {

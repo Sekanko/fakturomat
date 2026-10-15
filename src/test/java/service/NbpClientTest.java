@@ -4,9 +4,9 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sekankodev.pl.dto.RateDto;
-import sekankodev.pl.exception.NbpApiException;
-import sekankodev.pl.service.NbpClient;
+import pl.sekankodev.dto.RateDto;
+import pl.sekankodev.exception.NbpApiException;
+import pl.sekankodev.service.NbpClient;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package sekankodev.pl.exception;
+package pl.sekankodev.exception;
 
 public class NbpApiException extends AppException {
     public NbpApiException(String message) {

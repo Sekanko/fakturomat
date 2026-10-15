@@ -1,7 +1,7 @@
-package sekankodev.pl.dto;
+package pl.sekankodev.dto;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
-import sekankodev.pl.model.Computer;
+import pl.sekankodev.model.Computer;
 import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 import java.math.BigDecimal;

@@ -34,7 +34,7 @@ public class NbpClientTest {
 
     @Test
     void getDollarPlnRate_validInput_returnsRateDto(){
-        stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(okJson(
+        stubFor(get("/exchangerates/rates/a/usd/2000-01-01/2000-01-08/").willReturn(okJson(
                 """
             {
               "table": "C",
@@ -44,20 +44,17 @@ public class NbpClientTest {
                 {
                   "no": "C/C/C",
                   "effectiveDate": "2000-01-01",
-                  "bid": 1.2345,
-                  "ask": 1.2346
+                  "mid": 1.2345
                 },
                 {
                   "no": "B/B/B",
                   "effectiveDate": "2000-01-08",
-                  "bid": 1.5432,
-                  "ask": 1.6432
+                  "mid": 1.5432
                 },
                 {
                   "no": "A/A/A",
                   "effectiveDate": "2000-01-02",
-                  "bid": 1.2356,
-                  "ask": 1.2367
+                  "mid": 1.2356
                 }
               ]
             }
@@ -67,8 +64,7 @@ public class NbpClientTest {
         RateDto expected = new RateDto(
                 "B/B/B",
                 LocalDate.of(2000,1,8),
-                BigDecimal.valueOf(1.5432),
-                BigDecimal.valueOf(1.6432)
+                BigDecimal.valueOf(1.5432)
         );
 
         RateDto result = nbpClient.getDollarPlnRate(LocalDate.of(2000,1,8), LocalDate.of(2000,1,1));
@@ -78,19 +74,19 @@ public class NbpClientTest {
 
     @Test
     void getDollarPlnRate_invalidInput_throwsNbpApiException(){
-         stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(notFound()));
+         stubFor(get("/exchangerates/rates/a/usd/2000-01-01/2000-01-08/").willReturn(notFound()));
          assertThrows(RateNotFoundException.class, () -> nbpClient.getDollarPlnRate(LocalDate.of(2000,1,8), LocalDate.of(2000,1,1)));
     }
 
     @Test
     void getDollarPlnRate_serverError_throwsNbpApiException(){
-        stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(serverError()));
+        stubFor(get("/exchangerates/rates/a/usd/2000-01-01/2000-01-08/").willReturn(serverError()));
         assertThrows(NbpApiException.class, () -> nbpClient.getDollarPlnRate(LocalDate.of(2000,1,8), LocalDate.of(2000,1,1)));
     }
 
     @Test
     void getDollarPlnRate_invalidBody_throwsNbpApiException(){
-        stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(okJson(
+        stubFor(get("/exchangerates/rates/a/usd/2000-01-01/2000-01-08/").willReturn(okJson(
                 """
               {
                 "idk": "test"
@@ -102,13 +98,13 @@ public class NbpClientTest {
 
     @Test
     void getDollarPlnRate_invalidJson_throwsNbpApiException(){
-        stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(okJson("{ this is not json")));
+        stubFor(get("/exchangerates/rates/a/usd/2000-01-01/2000-01-08/").willReturn(okJson("{ this is not json")));
         assertThrows(NbpApiException.class, () -> nbpClient.getDollarPlnRate(LocalDate.of(2000,1,8), LocalDate.of(2000,1,1)));
     }
 
     @Test
     void getDollarPlnRate_invalidResponse_throwsNbpApiException() throws IOException, InterruptedException {
-        stubFor(get("/exchangerates/rates/c/usd/2000-01-01/2000-01-08/").willReturn(okJson("""
+        stubFor(get("/exchangerates/rates/a/usd/2000-01-01/2000-01-08/").willReturn(okJson("""
                 {
                   "key": "value"
                 }

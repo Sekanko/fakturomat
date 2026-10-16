@@ -6,7 +6,6 @@ import java.time.LocalDate;
 public record RateDto(
         String no,
         LocalDate effectiveDate,
-        BigDecimal bid,
-        BigDecimal ask
+        BigDecimal mid
 ) {
 }

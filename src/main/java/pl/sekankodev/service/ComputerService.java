@@ -65,7 +65,7 @@ public class ComputerService {
 
     private BigDecimal calculatePlnPrice(LocalDate date, BigDecimal usdPrice){
         RateDto rateDto = nbpClient.getDollarPlnRate(date, date.minusDays(MAX_DAYS_BACK));
-        return usdPrice.multiply(rateDto.bid()).setScale(2, RoundingMode.HALF_UP);
+        return usdPrice.multiply(rateDto.mid()).setScale(2, RoundingMode.HALF_UP);
     }
 
     private void saveFailedProcedure(Path path){

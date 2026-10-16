@@ -36,7 +36,7 @@ public class NbpClient {
         String minDateString = minDate.toString();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(defaultApiUrl + "/exchangerates/rates/c/usd/" + minDateString + "/" + maxDateString + "/"))
+                .uri(URI.create(defaultApiUrl + "/exchangerates/rates/a/usd/" + minDateString + "/" + maxDateString + "/"))
                 .header("Accept", "application/json")
                 .GET()
                 .build();

@@ -86,7 +86,7 @@ public class ComputerServiceTest {
         void exporterFailed_throwsInvoiceNotCreatedException(){
             doThrow(new DataAccessException("message", new Exception())).when(exporter).createInvoice(any(), any());
             when(nbpClient.getDollarPlnRate(any(), any())).thenReturn(
-                    new RateDto("test", LocalDate.of(2000,1,1), BigDecimal.valueOf(2.35), BigDecimal.valueOf(2.5))
+                    new RateDto("test", LocalDate.of(2000,1,1), BigDecimal.valueOf(2.35))
             );
             assertThrows(InvoiceNotCreatedException.class ,()->computerService.processOrder(dtoList, "./faktura.xml"));
         }
@@ -94,7 +94,7 @@ public class ComputerServiceTest {
         @Test
         void validInput_invoiceIsCreated(){
             when(nbpClient.getDollarPlnRate(any(), any())).thenReturn(
-                    new RateDto("test", LocalDate.of(2000,1,1), BigDecimal.valueOf(2.35), BigDecimal.valueOf(2.5))
+                    new RateDto("test", LocalDate.of(2000,1,1), BigDecimal.valueOf(2.35))
             );
             computerService.processOrder(dtoList, "./faktura.xml");
 

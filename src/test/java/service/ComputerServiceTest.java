@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,6 +21,7 @@ import pl.sekankodev.service.NbpClient;
 import pl.sekankodev.service.XmlComputerExporter;
 
 import java.math.BigDecimal;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -40,6 +42,9 @@ public class ComputerServiceTest {
 
     @InjectMocks
     private ComputerService computerService;
+
+    @TempDir
+    Path tempDir;
 
     @BeforeEach
      void setUp() {
@@ -63,7 +68,8 @@ public class ComputerServiceTest {
         @Test
         public
         void emptyList_nothingHappens() {
-            computerService.processOrder(List.of(), "./faktura.xml");
+            Path path = tempDir.resolve("faktura.xml");
+            computerService.processOrder(List.of(), path.toString());
             verifyNoInteractions(computerRepository);
             verifyNoInteractions(exporter);
             verifyNoInteractions(nbpClient);
@@ -84,19 +90,22 @@ public class ComputerServiceTest {
         @Test
         public
         void exporterFailed_throwsInvoiceNotCreatedException(){
+            Path path = tempDir.resolve("faktura.xml");
             doThrow(new DataAccessException("message", new Exception())).when(exporter).createInvoice(any(), any());
             when(nbpClient.getDollarPlnRate(any(), any())).thenReturn(
                     new RateDto("test", LocalDate.of(2000,1,1), BigDecimal.valueOf(2.35))
             );
-            assertThrows(InvoiceNotCreatedException.class ,()->computerService.processOrder(dtoList, "./faktura.xml"));
+            assertThrows(InvoiceNotCreatedException.class ,()->computerService.processOrder(dtoList, path.toString()));
         }
 
         @Test
         void validInput_invoiceIsCreated(){
+            Path path = tempDir.resolve("faktura.xml");
+
             when(nbpClient.getDollarPlnRate(any(), any())).thenReturn(
                     new RateDto("test", LocalDate.of(2000,1,1), BigDecimal.valueOf(2.35))
             );
-            computerService.processOrder(dtoList, "./faktura.xml");
+            computerService.processOrder(dtoList, path.toString());
 
             verify(exporter, times(1)).createInvoice(any(), any());
             verify(computerRepository, times(1)).insert(anyList());
